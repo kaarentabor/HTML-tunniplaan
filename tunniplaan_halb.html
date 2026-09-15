@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<title>~*~ K-TA-25A T U N N I P L A A N ~*~</title>
+<style>
+  * { box-sizing: border-box; cursor: url('data:image/png;base64,'), auto; }
+
+  @keyframes rainbow {
+    0%   { color: #ff0000; }
+    16%  { color: #ff9900; }
+    33%  { color: #ffff00; }
+    50%  { color: #33ff00; }
+    66%  { color: #0099ff; }
+    83%  { color: #cc00ff; }
+    100% { color: #ff0000; }
+  }
+  @keyframes spin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  @keyframes bgshift {
+    0% { background-color:#ff0066; }
+    25% { background-color:#00ffcc; }
+    50% { background-color:#ffee00; }
+    75% { background-color:#9900ff; }
+    100% { background-color:#ff0066; }
+  }
+
+  body {
+    margin: 0;
+    font-family: "Comic Sans MS", "Papyrus", cursive;
+    animation: bgshift 6s infinite;
+    overflow-x: hidden;
+    text-align: center;
+  }
+
+  marquee {
+    background: black;
+    color: lime;
+    font-size: 22px;
+    padding: 6px;
+  }
+
+  h1 {
+    animation: rainbow 2s linear infinite, wiggle 1s ease-in-out infinite;
+    font-size: 38px;
+    text-shadow: 3px 3px 0 #000, -2px -2px 0 #fff;
+    letter-spacing: 6px;
+    margin: 10px 0;
+  }
+
+  .subtitle {
+    font-size: 10px;
+    color: #444;
+    transform: rotate(-2deg);
+    margin-bottom: 20px;
+  }
+
+  #loading {
+    font-size: 20px;
+    padding: 40px;
+  }
+
+  .day-btn-wrap {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 10px;
+    position: relative;
+    height: 90px;
+  }
+
+  .day-btn {
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 4px dashed #000;
+    border-radius: 50% 20% 50% 20%;
+    background: hsl(calc(var(--i) * 60), 90%, 60%);
+    transition: transform 0.05s;
+    position: relative;
+  }
+
+  /* buttons run away from the cursor */
+  .runaway:hover {
+    position: relative;
+  }
+
+  .tiny-scroll {
+    width: 260px;
+    height: 90px;
+    overflow: auto;
+    margin: 0 auto 20px auto;
+    border: 6px double magenta;
+    background: repeating-linear-gradient(45deg, #fff, #fff 10px, #eee 10px, #eee 20px);
+    font-size: 11px;
+    padding: 4px;
+  }
+
+  table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    display: none; /* hidden until you "solve" the captcha */
+  }
+
+  table.show { display: table; }
+
+  td, th {
+    border: 3px groove purple;
+    padding: 10px;
+    font-size: 12px;
+    min-width: 70px;
+    transform: skew(-2deg);
+  }
+
+  th {
+    background: repeating-linear-gradient(45deg, yellow, yellow 8px, black 8px, black 16px);
+    color: white;
+    text-shadow: 1px 1px black;
+  }
+
+  .cell {
+    animation: none;
+  }
+  .cell:hover {
+    animation: spin 1.2s linear;
+  }
+
+  .blink {
+    animation: rainbow 1s linear infinite;
+    font-weight: bold;
+  }
+
+  #captcha {
+    margin: 20px;
+    font-size: 14px;
+  }
+  #captcha input {
+    font-size: 20px;
+    width: 60px;
+    text-align: center;
+  }
+
+  .glow-btn {
+    font-size: 18px;
+    padding: 12px 24px;
+    background: black;
+    color: lime;
+    border: 3px solid magenta;
+    box-shadow: 0 0 15px lime;
+    animation: wiggle 0.4s infinite;
+  }
+
+  #popup {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: yellow;
+    border: 5px solid red;
+    padding: 20px;
+    font-size: 18px;
+    z-index: 999;
+    animation: wiggle 0.3s infinite;
+  }
+
+  footer {
+    font-size: 8px;
+    color: #999;
+    margin: 40px 0 10px;
+  }
+
+  .egg {
+    position: fixed;
+    bottom: 4px;
+    right: 4px;
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border: none;
+    opacity: 0.05;
+  }
+
+  #confetti-msg {
+    display:none;
+    font-size: 26px;
+    animation: rainbow 1s linear infinite;
+  }
+</style>
+</head>
+<body onload="startAnnoyance()">
+
+<marquee behavior="alternate" scrollamount="8">*** TERE TULEMAST K-TA-25A TUNNIPLAANI ***  ⚠ MELVIN VÄGA SUUR ⚠  *** SÖÖGIVAHETUND ON PÜHA ***</marquee>
+
+<h1>K‑TA‑25A T U N N I P L A A N</h1>
+<div class="subtitle">Techno TLN Kesklinn • Pärnu mnt 57 • Klassijuhataja: Sikorski Jevgeni (proovi loetud saada seda infot, palju õnne)</div>
+
+<div id="loading">⏳ Laen tunniplaani... (see võtab kaua, sest nii peabki)</div>
+
+<div id="captcha" style="display:none;">
+  🧩 <b>Turvakontroll:</b> selleks, et tunniplaani näha, lahenda tehe:
+  <span id="mathq"></span> = <input type="text" id="mathAns"> 
+  <button class="glow-btn" onclick="checkCaptcha()">KINNITA 🔐</button>
+  <div id="captchaMsg" style="color:red;font-size:12px;"></div>
+</div>
+
+<div class="tiny-scroll" id="hint" style="display:none;">
+  Vihje: kui unustad päeva nime, pead kerima siin väga väikeses aknas, sest ekraanil pole kohta suuremale kastile. Head aega raiskamist!
+  Lisainfo: söögivahetund on 11:45–12:45, kuid seda infot ei näidata mugavalt kusagil mujal.
+</div>
+
+<div class="day-btn-wrap" id="dayButtons" style="display:none;"></div>
+
+<table id="scheduleTable">
+  <thead>
+    <tr>
+      <th>Tund</th>
+      <th id="colHead"></th>
+    </tr>
+  </thead>
+  <tbody id="scheduleBody"></tbody>
+</table>
+
+<div id="popup">🎉 SA LEIDSID TUNNI! ÕNNITLUSED! 🎉<br><button onclick="document.getElementById('popup').style.display='none'">Sulge (kui suudad)</button></div>
+
+<div id="confetti-msg">🎊 TECHNO K‑TA‑25A ON PARIM KLASS! 🎊</div>
+
+<footer>See leht on TAHTLIKULT halvasti disainitud kooliprojekti tarbeks (anti-UI harjutus). Ükski õpilane ega loom ei saanud kannatada.</footer>
+
+<button class="egg" onclick="revealEgg()" title=" "> </button>
+
+<script>
+// tunniplaani andmed
+const schedule = {
+  "E": { name: "Esmaspäev", lessons: {
+    3: {name:"Ühiskonnaõpetus", room:"B-225", teacher:"Kattago"},
+    5: {name:"Veebirakendused", room:"B-314", teacher:"Suursalu"},
+    6: {name:"Andmerakendused", room:"A-302", teacher:"Lindmaa"},
+    7: {name:"Ettevõtluse alused", room:"B-419", teacher:"Kreinin"}
+  }},
+  "T": { name: "Teisipäev", lessons: {
+    1: {name:"Energia", room:"A-308", teacher:"Lindmaa"},
+    2: {name:"Veebirakendused", room:"B-103/105", teacher:"Käsk"},
+    5: {name:"Keel ja kirjandus", room:"A-202", teacher:"Varul"},
+    6: {name:"Matemaatika", room:"A-209", teacher:"Retšnoi"},
+    7: {name:"Individuaalkava (Gr.1: B-422 Stassenko / Gr.2: B-403 Stern-Kopra)", room:"B-422 / B-403", teacher:"Stassenko / Stern-Kopra"}
+  }},
+  "K": { name: "Kolmapäev", lessons: {
+    1: {name:"Matemaatika", room:"A-209", teacher:"Retšnoi"},
+    2: {name:"Ajalugu", room:"A-401", teacher:"Kästik"},
+    5: {name:"Kehaline kasvatus", room:"C-101", teacher:"Viikmann"}
+  }},
+  "N": { name: "Neljapäev", lessons: {
+    1: {name:"Ajalugu", room:"A-310", teacher:"Kästik"},
+    2: {name:"Programmeerimine II", room:"A-210", teacher:"Peipman"},
+    5: {name:"Keel ja kirjandus", room:"A-202", teacher:"Varul"}
+  }},
+  "R": { name: "Reede", lessons: {
+    1: {name:"Programmeerimine II", room:"A-402", teacher:"Peipman"},
+    2: {name:"Programmeerimine II", room:"A-402", teacher:"Peipman"},
+    5: {name:"Keemia A", room:"A-304", teacher:"Agu L."}
+  }},
+  "L": { name: "Laupäev", lessons: {} }
+};
+
+const periodTimes = {
+  1:"8:30–9:15", 2:"9:15–10:00", 3:"10:15–11:00", 4:"11:00–11:45",
+  5:"12:45–13:30", 6:"13:30–14:15", 7:"14:30–15:15", 8:"15:15–16:00", 9:"16:15–17:00"
+};
+
+let num1, num2;
+
+function startAnnoyance(){
+  setTimeout(()=>{
+    document.getElementById('loading').style.display='none';
+    document.getElementById('captcha').style.display='block';
+    num1 = Math.floor(Math.random()*9)+1;
+    num2 = Math.floor(Math.random()*9)+1;
+    document.getElementById('mathq').textContent = num1 + " + " + num2;
+  }, 3500); // ootamatult pikk "laadimine"
+}
+
+function checkCaptcha(){
+  const ans = parseInt(document.getElementById('mathAns').value);
+  if(ans === num1+num2){
+    document.getElementById('captcha').style.display='none';
+    document.getElementById('hint').style.display='block';
+    buildButtons();
+    document.getElementById('dayButtons').style.display='flex';
+  } else {
+    document.getElementById('captchaMsg').textContent = "Vale vastus! Proovi uuesti. (Vihje: see on liitmine, mitte lahutamine)";
+    // karistuseks uus küsimus
+    num1 = Math.floor(Math.random()*9)+1;
+    num2 = Math.floor(Math.random()*9)+1;
+    document.getElementById('mathq').textContent = num1 + " + " + num2;
+  }
+}
+
+function buildButtons(){
+  const wrap = document.getElementById('dayButtons');
+  wrap.innerHTML = '';
+  const days = Object.keys(schedule);
+  days.forEach((d,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'day-btn runaway';
+    btn.style.setProperty('--i', i);
+    btn.textContent = schedule[d].name;
+    btn.style.position = 'absolute';
+    randomPos(btn, wrap);
+    btn.addEventListener('mouseenter', ()=> randomPos(btn, wrap));
+    btn.addEventListener('click', ()=> showDay(d));
+    wrap.appendChild(btn);
+  });
+}
+
+function randomPos(btn, wrap){
+  const maxX = wrap.clientWidth - 120;
+  const maxY = wrap.clientHeight - 40;
+  btn.style.left = Math.max(0, Math.random()*maxX) + 'px';
+  btn.style.top = Math.max(0, Math.random()*maxY) + 'px';
+}
+
+function showDay(d){
+  const table = document.getElementById('scheduleTable');
+  const body = document.getElementById('scheduleBody');
+  document.getElementById('colHead').textContent = schedule[d].name;
+  body.innerHTML = '';
+
+  Object.keys(periodTimes).forEach(p=>{
+    const row = document.createElement('tr');
+    const th = document.createElement('td');
+    th.innerHTML = '<b>' + p + '</b><br><span style="font-size:9px">' + periodTimes[p] + '</span>';
+    row.appendChild(th);
+
+    const td = document.createElement('td');
+    td.className = 'cell';
+    const lesson = schedule[d].lessons[p];
+    if(lesson){
+      td.innerHTML = '<span class="blink">' + lesson.name + '</span><br><small>' + lesson.room + ' • ' + lesson.teacher + '</small>';
+      td.onclick = ()=>{
+        document.getElementById('popup').style.display='block';
+        setTimeout(()=>{ document.getElementById('popup').style.display='none'; }, 2500);
+      };
+      td.style.background = 'hsl(' + (Math.random()*360) + ',80%,80%)';
+    } else if (p == 4) {
+      td.textContent = '(söögivahetund toimub kuskil siin, arva ise millal)';
+      td.style.fontSize = '9px';
+    } else {
+      td.textContent = '';
+    }
+    row.appendChild(td);
+    body.appendChild(row);
+  });
+
+  table.classList.add('show');
+  window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+}
+
+function revealEgg(){
+  const msg = document.getElementById('confetti-msg');
+  msg.style.display = 'block';
+  setTimeout(()=>{ msg.style.display='none'; }, 3000);
+}
+</script>
+
+</body>
+</html>
